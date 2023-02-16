@@ -1,0 +1,72 @@
+{
+  "name": "resume-forge",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "./src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/resume-forge"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "resume-forge:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "resume-forge:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "resume-forge:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nrwl/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "resume-forge:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "resume-forge:build:development"
+        },
+        "production": {
+          "buildTarget": "resume-forge:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/vite:test",
+      "outputs": ["coverage/resume-forge"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "coverage/resume-forge"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["./src/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}
