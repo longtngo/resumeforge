@@ -1,16 +1,11 @@
-import styled from 'styled-components';
-
-import NxWelcome from './nx-welcome';
-
-const StyledApp = styled.div`
-  // Your style here
-`;
+import { CssBaseline } from '@mui/material';
+import { View } from 'src/pages';
 
 export function App() {
   return (
-    <StyledApp>
-      <NxWelcome title="resume-forge" />
-    </StyledApp>
+    <CssBaseline>
+      <View />
+    </CssBaseline>
   );
 }
 
