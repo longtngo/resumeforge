@@ -2,6 +2,7 @@
   "name": "resume-forge",
   "version": "0.0.0",
   "license": "MIT",
+  "homepage": "http://longtngo.github.io/resumeforge",
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
