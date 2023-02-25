@@ -1,5 +1,9 @@
 import { AppBar, Toolbar, IconButton, Typography, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import UploadIcon from '@mui/icons-material/Upload';
+import DownloadIcon from '@mui/icons-material/Download';
+import EditIcon from '@mui/icons-material/Edit';
 
 export const NavBar = () => {
   return (
@@ -17,9 +21,22 @@ export const NavBar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Resume Forge
         </Typography>
-        <Button color="inherit">Upload</Button>
-        <Button color="inherit">Download</Button>
-        <Button color="inherit">Edit</Button>
+        <Button color="inherit" title="Upload">
+          <UploadIcon /> Upload
+        </Button>
+        <Button color="inherit" title="Download">
+          <DownloadIcon /> Download
+        </Button>
+        <Button color="inherit" title="Edit">
+          <EditIcon /> Edit
+        </Button>
+        <IconButton
+          href="https://longtngo.github.io/resumeforge/"
+          color="inherit"
+          title="GitHub"
+        >
+          <GitHubIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
