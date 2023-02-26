@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { styled, Avatar } from '@mui/material';
 import { IData } from 'src/types';
 import { Location } from './location';
 import { ProfileList } from './profileList';
@@ -28,8 +28,6 @@ const Phone = styled('span')`
 `;
 const Url = styled('a')``;
 const Summary = styled('div')``;
-const RelevantExp = styled('div')``;
-const TotalExp = styled('div')``;
 const Objective = styled('div')``;
 
 const Heading = styled('div')`
@@ -44,7 +42,6 @@ const HeadingGroupLeft = styled('div')`
   flex-direction: column;
   justify-content: flex-start;
   text-align: left;
-  /* gap: 8px; */
 `;
 
 const HeadingGroupRight = styled('div')`
@@ -53,18 +50,38 @@ const HeadingGroupRight = styled('div')`
   flex-direction: column;
   justify-content: flex-end;
   text-align: right;
-  /* gap: 8px; */
+`;
+
+const AvatarEl = styled(Avatar)`
+  width: 110px;
+  height: 110px;
+`;
+
+const Row = styled('div')`
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+`;
+
+const Column = styled(Row)`
+  flex-direction: column;
+  gap: 0px;
 `;
 
 export const BasicSection = ({ data: { basics } }: Props) => {
   return (
     <Container>
-      <Name>{basics.name}</Name>
-      {/* <Label>{data.label}</Label> */}
       <Heading>
         <HeadingGroupLeft>
-          <Location data={basics.location} />
-          <ProfileList data={basics.profiles} />
+          <Row>
+            {!!basics.image && <AvatarEl src={basics.image} sizes="lg" />}
+            <Column>
+              <Name>{basics.name}</Name>
+              <Label>{basics.label}</Label>
+              <Location data={basics.location} />
+              <ProfileList data={basics.profiles} />
+            </Column>
+          </Row>
         </HeadingGroupLeft>
         <HeadingGroupRight>
           <Phone>{basics.phone}</Phone>
@@ -81,8 +98,6 @@ export const BasicSection = ({ data: { basics } }: Props) => {
         <SectionHeading>Objective</SectionHeading>
         <Objective>{basics.objective}</Objective>
       </Section>
-      {/* <RelevantExp>{data.relExp}</RelevantExp>
-      <TotalExp>{data.totalExp}</TotalExp> */}
     </Container>
   );
 };

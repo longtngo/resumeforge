@@ -5,14 +5,14 @@
     "image": "https://randomuser.me/api/portraits/men/18.jpg",
     "email": "janedoe@email.com",
     "phone": "+91 9876543210",
-    "url": "www.e-resume.vercel.app",
+    "url": "http://www.e-resume.vercel.app",
     "summary": "I am a web developer having expertise in frontend development and exposure to back- end development. I design and develop web applications using the latest technologies to deliver the product with quality code.",
     "location": {
-      "addressLine1": "1234 Sesame St",
-      "addressLine2": "Apt #456",
+      "addressLine1": "",
+      "addressLine2": "",
       "city": "Houston",
       "state": "TX",
-      "zipCode": "12345"
+      "zipCode": ""
     },
     "relExp": "4 years",
     "totalExp": "6 Years",
@@ -63,25 +63,30 @@
     "languages": [
       {
         "name": "JavaScript",
-        "level": 90
+        "level": 1,
+        "text": "Beginner"
       },
       {
         "name": "HTML5",
-        "level": 80
+        "level": 2,
+        "text": "Intermediate"
       },
       {
         "name": "CSS",
-        "level": 80
+        "level": 3,
+        "text": "Good"
       }
     ],
     "frameworks": [
       {
         "name": "React",
-        "level": 70
+        "level": 4,
+        "text": "Excellent"
       },
       {
         "name": "Angular",
-        "level": 70
+        "level": 5,
+        "text": ""
       }
     ],
     "technologies": [

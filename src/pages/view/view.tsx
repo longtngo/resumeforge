@@ -14,7 +14,7 @@ export const View = () => {
     <Box>
       <NavBar />
       <PageContent>
-        <ContainerEl maxWidth="md">
+        <ContainerEl maxWidth="lg">
           <PaperEl>
             <Classic />
           </PaperEl>

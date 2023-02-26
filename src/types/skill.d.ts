@@ -1,6 +1,8 @@
 export interface ISkill {
   name: string;
   level: number;
+  text?: string;
+  maxLevel?: number;
 }
 
 export interface IKills {

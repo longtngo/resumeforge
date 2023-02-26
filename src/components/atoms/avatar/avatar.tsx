@@ -1,7 +1,7 @@
-import { styled } from '@mui/material';
+import { Avatar, AvatarProps, styled } from '@mui/material';
 import React, { useMemo } from 'react';
 
-type Props = {
+type Props = AvatarProps & {
   text: string;
   size?: number;
 };
@@ -28,19 +28,16 @@ const COLORS = [
   '#7f8c8d',
 ];
 
-const Container = styled('div')<{ $colorIdx: number; $size: number }>`
+const StyledAvatar = styled(Avatar)<{ $colorIdx: number; $size: number }>`
   background-color: ${({ $colorIdx }) => COLORS[$colorIdx]};
   width: ${({ $size }) => `${$size}px`};
   height: ${({ $size }) => `${$size}px`};
   line-height: ${({ $size }) => `${$size}px`};
   font-size: ${({ $size }) => `${$size / 2}px`};
   font-weight: bold;
-  color: white;
-  text-align: center;
-  border-radius: 50%;
 `;
 
-export const Avatar = ({ text, size = 24, ...others }: Props) => {
+export const AvatarWithBG = ({ text, size = 24, ...others }: Props) => {
   const initials = useMemo(() => {
     if (!text) return '==';
 
@@ -60,8 +57,8 @@ export const Avatar = ({ text, size = 24, ...others }: Props) => {
   const colorIdx = Math.abs(initials.charCodeAt(0) - 65) % COLORS.length;
 
   return (
-    <Container $colorIdx={colorIdx} $size={size} {...others}>
+    <StyledAvatar $colorIdx={colorIdx} $size={size} {...others}>
       {initials}
-    </Container>
+    </StyledAvatar>
   );
 };

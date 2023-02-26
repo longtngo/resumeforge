@@ -1,4 +1,5 @@
-import { CircularProgress, styled } from '@mui/material';
+import { styled } from '@mui/material';
+import { SkillBar } from 'src/components/atoms';
 import { ISkill } from 'src/types';
 
 type Props = {
@@ -8,25 +9,27 @@ type Props = {
 
 const Container = styled('li')`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
+`;
+
+const Row = styled('div')`
+  display: flex;
+  flex-direction: row;
   gap: 8px;
 `;
 
 const Name = styled('div')``;
 
-export const Skill = ({ data: { name, level }, maxLevel = 5 }: Props) => {
+export const Skill = ({ data: { name, level, text, maxLevel = 5 } }: Props) => {
   const value = Math.round((level / maxLevel) * 100);
   return (
     <Container>
       <Name>{name}</Name>
-      <CircularProgress
-        variant="determinate"
-        value={value}
-        size={20}
-        thickness={12}
-      />
-      {value}%
+      <Row>
+        <SkillBar level={level} maxLevel={maxLevel} />
+        {text ? text : `${value}%`}
+      </Row>
     </Container>
   );
 };

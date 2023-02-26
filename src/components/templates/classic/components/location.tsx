@@ -6,19 +6,25 @@ type Props = {
   data: IBasicLocation;
 };
 
-const Container = styled('div')``;
+const Container = styled('div')`
+  & > span:not(:last-child)::after {
+    content: ', ';
+  }
+`;
 const AddressLine1 = styled('span')``;
 const AddressLine2 = styled('span')``;
-const City = styled('span')``;
-const State = styled('span')``;
+const CityState = styled('span')``;
 const ZipCode = styled('span')``;
 
 export const Location = ({ data }: Props) => {
   return (
     <Container>
-      <AddressLine1>{data.addressLine1}</AddressLine1>,{' '}
-      <AddressLine2>{data.addressLine2}</AddressLine2>, <City>{data.city}</City>
-      <State>{data.state}</State>, <ZipCode>{data.zipCode}</ZipCode>
+      {!!data.addressLine1 && <AddressLine1>{data.addressLine1}</AddressLine1>}
+      {!!data.addressLine2 && <AddressLine2>{data.addressLine2}</AddressLine2>}
+      <CityState>
+        {data.city} {data.state}
+      </CityState>
+      {!!data.zipCode && <ZipCode>{data.zipCode}</ZipCode>}
     </Container>
   );
 };

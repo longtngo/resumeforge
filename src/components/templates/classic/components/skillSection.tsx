@@ -1,6 +1,5 @@
 import { Paper, styled } from '@mui/material';
-import React from 'react';
-import { IData, IKills } from 'src/types';
+import { IData } from 'src/types';
 import { Section, SectionHeading } from './shared';
 import { SkillList } from './skillList';
 
@@ -18,13 +17,13 @@ const SubSectionContainer = styled('div')`
 const SubSection = styled(Paper)`
   padding: 8px;
   min-width: 200px;
+  font-size: 13px;
 `;
 const SubSectionTitle = styled('h3')`
+  font-size: 15px;
   text-transform: capitalize;
   margin: 0px;
 `;
-
-const oneHundredSkills = ['languages', 'frameworks'];
 
 export const SkillSection = ({ data: { skills } }: Props) => {
   return (
@@ -34,10 +33,7 @@ export const SkillSection = ({ data: { skills } }: Props) => {
         {Object.entries(skills).map(([key, value]) => (
           <SubSection key={key}>
             <SubSectionTitle>{key}</SubSectionTitle>
-            <SkillList
-              data={value}
-              maxLevel={oneHundredSkills.includes(key) ? 100 : undefined}
-            />
+            <SkillList data={value} />
           </SubSection>
         ))}
       </SubSectionContainer>

@@ -5,7 +5,6 @@ import { Skill } from './skill';
 
 type Props = {
   data: ISkill[];
-  maxLevel?: number;
 };
 
 const Container = styled('ul')`
@@ -14,11 +13,11 @@ const Container = styled('ul')`
   padding: 0px;
 `;
 
-export const SkillList = ({ data, maxLevel }: Props) => {
+export const SkillList = ({ data }: Props) => {
   return (
     <Container>
       {data.map((item) => (
-        <Skill key={item.name} data={item} maxLevel={maxLevel} />
+        <Skill key={item.name} data={item} />
       ))}
     </Container>
   );

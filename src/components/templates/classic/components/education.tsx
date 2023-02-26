@@ -17,6 +17,10 @@ type Props = {
 
 const Line = styled('div')``;
 
+const StyledDot = styled(TimelineDot)`
+  background-color: orange;
+`;
+
 export const Education = ({ data }: Props) => {
   return (
     <TimelineItem>
@@ -24,12 +28,13 @@ export const Education = ({ data }: Props) => {
         <DateRange data={data} inputFormat="YYYY" outputFormat="YYYY" />
       </TimelineOppositeContent>
       <TimelineSeparator>
-        <TimelineDot />
+        <StyledDot />
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>
-        <Line>{data.major}</Line>
-        <Line>{data.level}</Line>
+        <Line>
+          {data.major} - {data.level}
+        </Line>
         <Line>
           <a href={data.url ? data.url : undefined}>{data.institution}</a>
         </Line>

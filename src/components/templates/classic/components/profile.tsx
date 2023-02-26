@@ -4,7 +4,7 @@ import { IBasicProfile } from 'src/types';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Avatar } from 'src/components/atoms/avatar/avatar';
+import { AvatarWithBG } from 'src/components/atoms/avatar/avatar';
 type Props = {
   data: IBasicProfile;
 };
@@ -38,7 +38,7 @@ export const Profile = ({ data }: Props) => {
   ) : mappedData ? (
     mappedData.image
   ) : (
-    <Avatar text={data.network} />
+    <AvatarWithBG text={data.network} />
   );
   return (
     <Link href={data.url} title={title}>

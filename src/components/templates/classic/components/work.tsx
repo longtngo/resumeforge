@@ -42,6 +42,10 @@ const HighlightHeading = styled('h4')`
   margin: 0px;
 `;
 
+const StyledDot = styled(TimelineDot)`
+  background-color: orange;
+`;
+
 export const Work = ({ data, inputDateFormat, outputDateFormat }: Props) => {
   return (
     <TimelineItem>
@@ -53,7 +57,7 @@ export const Work = ({ data, inputDateFormat, outputDateFormat }: Props) => {
         />
       </TimelineOppositeContent>
       <TimelineSeparator>
-        <TimelineDot />
+        <StyledDot />
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>
