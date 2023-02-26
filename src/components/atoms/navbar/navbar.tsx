@@ -31,9 +31,11 @@ export const NavBar = () => {
           <EditIcon /> Edit
         </Button>
         <IconButton
-          href="https://longtngo.github.io/resumeforge/"
+          href="https://github.com/longtngo/resumeforge"
           color="inherit"
           title="GitHub"
+          target="_blank"
+          rel="noreferrer"
         >
           <GitHubIcon />
         </IconButton>
