@@ -69,6 +69,8 @@ const Column = styled(Row)`
 `;
 
 export const BasicSection = ({ data: { basics } }: Props) => {
+  if (!basics) return null;
+
   return (
     <Container>
       <Heading>
@@ -89,15 +91,19 @@ export const BasicSection = ({ data: { basics } }: Props) => {
           <Url href={basics.url}>{basics.url}</Url>
         </HeadingGroupRight>
       </Heading>
-      <Section>
-        <SectionHeading>Summary</SectionHeading>
-        <Summary>{basics.summary}</Summary>
-      </Section>
+      {!!basics.summary && (
+        <Section>
+          <SectionHeading>Summary</SectionHeading>
+          <Summary>{basics.summary}</Summary>
+        </Section>
+      )}
 
-      <Section>
-        <SectionHeading>Objective</SectionHeading>
-        <Objective>{basics.objective}</Objective>
-      </Section>
+      {!!basics.objective && (
+        <Section>
+          <SectionHeading>Objective</SectionHeading>
+          <Objective>{basics.objective}</Objective>
+        </Section>
+      )}
     </Container>
   );
 };

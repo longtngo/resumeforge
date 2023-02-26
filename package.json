@@ -50,6 +50,7 @@
     "vitest": "^0.25.8"
   },
   "dependencies": {
+    "@jsonurl/jsonurl": "^1.1.7",
     "@mui/icons-material": "^5.11.9",
     "@mui/lab": "^5.0.0-alpha.120",
     "@mui/material": "^5.11.9",

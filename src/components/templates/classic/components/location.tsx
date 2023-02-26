@@ -17,6 +17,7 @@ const CityState = styled('span')``;
 const ZipCode = styled('span')``;
 
 export const Location = ({ data }: Props) => {
+  if (!data) return null;
   return (
     <Container>
       {!!data.addressLine1 && <AddressLine1>{data.addressLine1}</AddressLine1>}

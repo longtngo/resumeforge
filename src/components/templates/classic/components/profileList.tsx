@@ -14,6 +14,7 @@ const Container = styled('div')`
 `;
 
 export const ProfileList = ({ data }: Props) => {
+  if (!data) return null;
   return (
     <Container>
       {data.map((item, idx) => (

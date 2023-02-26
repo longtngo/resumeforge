@@ -1,11 +1,11 @@
 {
   "basics": {
-    "name": "Jane Doe",
+    "name": "Demo User",
     "label": "Frontend Developer",
     "image": "https://randomuser.me/api/portraits/men/18.jpg",
-    "email": "janedoe@email.com",
+    "email": "demo-user@email.com",
     "phone": "+91 9876543210",
-    "url": "http://www.e-resume.vercel.app",
+    "url": "http://www.demo-user-web.com",
     "summary": "I am a web developer having expertise in frontend development and exposure to back- end development. I design and develop web applications using the latest technologies to deliver the product with quality code.",
     "location": {
       "addressLine1": "",
@@ -20,41 +20,41 @@
     "profiles": [
       {
         "network": "linkedin",
-        "username": "sadanandpai",
-        "url": "https://www.linkedin.com/in/sadanandpai/"
+        "username": "demo-user",
+        "url": "https://www.linkedin.com/in/demo-user/"
       },
       {
         "network": "twitter",
-        "username": "sadanandpai",
-        "url": "https://www.twitter.com/sadanandpai/"
+        "username": "demo-user",
+        "url": "https://www.twitter.com/demo-user/"
       },
       {
         "network": "github",
-        "username": "sadanandpai",
-        "url": "https://github.com/sadanandpai/"
+        "username": "demo-user",
+        "url": "https://github.com/demo-user/"
       },
       {
         "network": "hackerrank",
-        "username": "paicube",
-        "url": "https://www.hackerrank.com/paicube/",
+        "username": "demo-user",
+        "url": "https://www.hackerrank.com/demo-user/",
         "logoUrl": "https://cdn.iconscout.com/icon/free/png-512/hackerrank-3521478-2944922.png?f=avif&w=24"
       },
       {
         "network": "hacker earth",
-        "username": "sadanandpai",
-        "url": "https://www.hackerearth.com/sadanandpai/",
+        "username": "demo-user",
+        "url": "https://www.hackerearth.com/demo-user/",
         "logoUrl": ""
       },
       {
         "network": "codechef",
-        "username": "sadanandpai",
-        "url": "https://www.codechef.com/sadanandpai/",
+        "username": "demo-user",
+        "url": "https://www.codechef.com/demo-user/",
         "logoUrl": ""
       },
       {
         "network": "leetcode",
-        "username": "paicube",
-        "url": "https://leetcode.com/paicube/",
+        "username": "demo-user",
+        "url": "https://leetcode.com/demo-user/",
         "logoUrl": "https://cdn.iconscout.com/icon/free/png-512/leetcode-3521542-2944960.png?f=avif&w=24"
       }
     ]

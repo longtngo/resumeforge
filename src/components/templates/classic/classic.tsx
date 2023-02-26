@@ -7,8 +7,8 @@ import {
   VolunteerSection,
   WorkSection,
 } from './components';
-import data from '../data.json';
 import { styled } from '@mui/material';
+import { useData } from 'src/hooks/useData';
 
 const Container = styled('main')`
   padding: 16px;
@@ -25,6 +25,10 @@ const sectionMap = {
 };
 
 export const Classic = () => {
+  const data = useData();
+
+  if (!data) return <>Loading...</>;
+
   return (
     <Container>
       {Object.keys(data).map((key) => {
