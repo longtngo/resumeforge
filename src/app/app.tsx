@@ -1,13 +1,12 @@
 import JsonURL from '@jsonurl/jsonurl';
 import { CssBaseline } from '@mui/material';
-import { useState, useEffect, useRef } from 'react';
-import { DataContext } from 'src/components/providers/dataProvider';
+import { useEffect, useRef } from 'react';
+import { useData } from 'src/hooks/useData';
 import { View } from 'src/pages';
-import { IData } from 'src/types';
 import demoData from '../data/demo.json';
 
 export function App() {
-  const [data, setData] = useState<IData>(demoData);
+  const { setData } = useData(demoData);
   const isInitialized = useRef<boolean>(false);
 
   useEffect(() => {
@@ -35,14 +34,12 @@ export function App() {
     }
 
     setData(result);
-  }, []);
+  }, [setData]);
 
   return (
-    <DataContext.Provider value={data}>
-      <CssBaseline>
-        <View />
-      </CssBaseline>
-    </DataContext.Provider>
+    <CssBaseline>
+      <View />
+    </CssBaseline>
   );
 }
 

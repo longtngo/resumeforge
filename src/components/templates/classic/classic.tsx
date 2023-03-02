@@ -25,7 +25,7 @@ const sectionMap = {
 };
 
 export const Classic = () => {
-  const data = useData();
+  const { data } = useData();
 
   if (!data) return <>Loading...</>;
 

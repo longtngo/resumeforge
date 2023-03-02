@@ -5,15 +5,8 @@ import {
   Typography,
   Button,
   Box,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   CssBaseline,
   Avatar,
-  styled,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import UploadIcon from '@mui/icons-material/Upload';
@@ -22,71 +15,59 @@ import EditIcon from '@mui/icons-material/Edit';
 import ShareIcon from '@mui/icons-material/Share';
 import { ReactElement, useCallback, useState } from 'react';
 import { useData } from 'src/hooks/useData';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import JsonURL from '@jsonurl/jsonurl';
-
-const drawerWidth = 240;
+import { IListItem, LeftDrawer } from './leftDrawer';
+import { ShareDialog } from './shareDialog';
+import { UploadDialog } from './uploadDialog';
+import { saveAs } from 'file-saver';
 
 type Props = {
   children: ReactElement;
 };
 
-const TextAreaEl = styled('textarea')`
-  width: 100%;
-`;
-
-const CheckedIcon = styled(CheckCircleIcon)`
-  margin-left: 8px;
-`;
-
 export const NavBar = ({ children }: Props) => {
-  const data = useData();
+  const { data, setData } = useData();
   const [showShareDialog, setShowShareDialog] = useState(false);
+  const [showFileUpload, setShowFileUpload] = useState(false);
   const [shareUrl, setShareUrl] = useState<string>();
-  const [copied, setCopied] = useState(false);
 
-  const handleClose = useCallback(() => {
+  const handleShareClose = useCallback(() => {
     setShowShareDialog(false);
     setShareUrl(undefined);
   }, []);
 
-  const handleCopyToClipboard = useCallback(() => {
-    if (!shareUrl) return;
-    navigator.clipboard.writeText(shareUrl);
+  const handleUploadClose = useCallback(() => {
+    setShowFileUpload(false);
+  }, []);
 
-    setCopied(true);
-
-    setTimeout(() => setCopied(false), 2000);
-  }, [shareUrl]);
-
-  const listItemData = [
+  const listItemData: IListItem[] = [
     {
       icon: <UploadIcon />,
       text: 'Upload',
-      onClick: () => {
-        // TODO
-      },
+      onClick: useCallback(() => {
+        setShowFileUpload(true);
+      }, []),
     },
     {
       icon: <DownloadIcon />,
       text: 'Download',
-      onClick: () => {
-        // TODO
-      },
+      onClick: useCallback(() => {
+        const fileName = data?.basics?.name || 'template-data';
+        const sanitizedFileName =
+          fileName.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.json';
+        saveAs(new Blob([JSON.stringify(data)]), sanitizedFileName);
+      }, [data]),
     },
     {
       icon: <ShareIcon />,
       text: 'Share',
-      onClick: () => {
+      onClick: useCallback(() => {
         if (!data) return;
 
         const encodedData = encodeURIComponent(JsonURL.stringify(data) || '');
         setShareUrl(window.location.origin + '?data=' + encodedData);
         setShowShareDialog(true);
-      },
+      }, [data]),
     },
   ];
 
@@ -116,50 +97,18 @@ export const NavBar = ({ children }: Props) => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-      >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
-          <List>
-            {listItemData.map((item) => (
-              <ListItem key={item.text} disablePadding>
-                <ListItemButton>
-                  {!!item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
-                  <ListItemText primary={item.text} onClick={item.onClick} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Drawer>
+      <LeftDrawer data={listItemData} />
       {children}
-      <Dialog
-        open={showShareDialog}
-        onClose={handleClose}
-        maxWidth="lg"
-        fullWidth
-      >
-        <DialogTitle>Share</DialogTitle>
-        <DialogContent>
-          <TextAreaEl rows={5} defaultValue={shareUrl} readOnly></TextAreaEl>
-          <Button
-            onClick={handleCopyToClipboard}
-            color={copied ? 'success' : undefined}
-          >
-            Copy to Clipboard
-            {copied && <CheckedIcon />}
-          </Button>
-        </DialogContent>
-      </Dialog>
+      <ShareDialog
+        show={showShareDialog}
+        onClose={handleShareClose}
+        shareUrl={shareUrl}
+      />
+      <UploadDialog
+        show={showFileUpload}
+        onClose={handleUploadClose}
+        onSubmit={setData}
+      />
     </Box>
   );
 };
