@@ -15,10 +15,12 @@ const Container = styled('div')`
 `;
 
 const Bar = styled('div')<{ $fill: boolean }>`
-  border: 1px solid grey;
+  border: ${({ theme, $fill }) =>
+    $fill ? 'none' : `1px solid ${theme.palette.grey[400]}`};
   flex-grow: 1;
-  background-color: ${({ $fill }) => ($fill ? 'orange' : 'white')};
-  height: 5px;
+  background-color: ${({ theme, $fill }) =>
+    $fill ? theme.palette.primary.main : 'white'};
+  height: 6px;
   width: 20px;
 `;
 

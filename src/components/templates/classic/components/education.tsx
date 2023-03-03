@@ -18,7 +18,7 @@ type Props = {
 const Line = styled('div')``;
 
 const StyledDot = styled(TimelineDot)`
-  background-color: orange;
+  background-color: ${({ theme }) => theme.palette.primary.main};
 `;
 
 export const Education = ({ data }: Props) => {

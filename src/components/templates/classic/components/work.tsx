@@ -43,7 +43,7 @@ const HighlightHeading = styled('h4')`
 `;
 
 const StyledDot = styled(TimelineDot)`
-  background-color: orange;
+  background-color: ${({ theme }) => theme.palette.primary.main};
 `;
 
 export const Work = ({ data, inputDateFormat, outputDateFormat }: Props) => {

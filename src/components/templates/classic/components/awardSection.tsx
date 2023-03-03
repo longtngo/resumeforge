@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Paper, styled } from '@mui/material';
+import { Paper, styled } from '@mui/material';
 import { IData } from 'src/types';
 import { Section, SectionHeading } from './shared';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
@@ -30,7 +30,7 @@ const AwardIcon = styled(EmojiEventsIcon)`
   position: absolute;
   left: 10px;
   top: 10px;
-  color: orange;
+  color: ${({ theme }) => theme.palette.primary.main};
   opacity: 15%;
   width: 100px;
   height: 100px;
@@ -38,6 +38,7 @@ const AwardIcon = styled(EmojiEventsIcon)`
 `;
 
 export const AwardSection = ({ data: { awards } }: Props) => {
+  if (!awards) return;
   return (
     <Section>
       <SectionHeading>Awards</SectionHeading>

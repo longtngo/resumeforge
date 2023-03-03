@@ -7,6 +7,7 @@ import {
   Box,
   CssBaseline,
   Avatar,
+  styled,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import UploadIcon from '@mui/icons-material/Upload';
@@ -16,16 +17,33 @@ import ShareIcon from '@mui/icons-material/Share';
 import { ReactElement, useCallback, useState } from 'react';
 import { useData } from 'src/hooks/useData';
 import JsonURL from '@jsonurl/jsonurl';
-import { IListItem, LeftDrawer } from './leftDrawer';
+import { LeftDrawer } from './leftDrawer';
 import { ShareDialog } from './shareDialog';
 import { UploadDialog } from './uploadDialog';
 import { saveAs } from 'file-saver';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import CircleIcon from '@mui/icons-material/Circle';
+import ColorizeIcon from '@mui/icons-material/Colorize';
+import { blue, green, red } from '@mui/material/colors';
+import { IListItem } from './sidebarItem';
+import { useThemeColor } from 'src/hooks/useTheme';
 
 type Props = {
   children: ReactElement;
 };
 
+const RedCircle = styled(CircleIcon)`
+  color: ${red[500]};
+`;
+const GreenCircle = styled(CircleIcon)`
+  color: ${green[500]};
+`;
+const BlueCircle = styled(CircleIcon)`
+  color: ${blue[500]};
+`;
+
 export const NavBar = ({ children }: Props) => {
+  const { setColor } = useThemeColor();
   const { data, setData } = useData();
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
@@ -68,6 +86,40 @@ export const NavBar = ({ children }: Props) => {
         setShareUrl(window.location.origin + '?data=' + encodedData);
         setShowShareDialog(true);
       }, [data]),
+    },
+    {
+      icon: <ColorLensIcon />,
+      text: 'Theme Color',
+      subItems: [
+        {
+          icon: <RedCircle />,
+          text: 'Red',
+          onClick: useCallback(() => {
+            setColor(red[500]);
+          }, [setColor]),
+        },
+        {
+          icon: <GreenCircle />,
+          text: 'Green',
+          onClick: useCallback(() => {
+            setColor(green[500]);
+          }, [setColor]),
+        },
+        {
+          icon: <BlueCircle />,
+          text: 'Blue',
+          onClick: useCallback(() => {
+            setColor(blue[500]);
+          }, [setColor]),
+        },
+        {
+          icon: <ColorizeIcon />,
+          text: 'Pick a color',
+          onClick: useCallback(() => {
+            alert('hello');
+          }, []),
+        },
+      ],
     },
   ];
 

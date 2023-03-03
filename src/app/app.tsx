@@ -1,11 +1,13 @@
 import JsonURL from '@jsonurl/jsonurl';
-import { CssBaseline } from '@mui/material';
-import { useEffect, useRef } from 'react';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useData } from 'src/hooks/useData';
+import { ColorContext, defaultColorContext } from 'src/hooks/useTheme';
 import { View } from 'src/pages';
 import demoData from '../data/demo.json';
 
 export function App() {
+  const [color, setColor] = useState(defaultColorContext.color);
   const { setData } = useData(demoData);
   const isInitialized = useRef<boolean>(false);
 
@@ -36,10 +38,21 @@ export function App() {
     setData(result);
   }, [setData]);
 
+  const theme = useMemo(() => {
+    const newThemeConfig = {
+      palette: { primary: { main: color } },
+    };
+    return createTheme(newThemeConfig);
+  }, [color]);
+
   return (
-    <CssBaseline>
-      <View />
-    </CssBaseline>
+    <ColorContext.Provider value={{ color, setColor }}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+          <View />
+        </CssBaseline>
+      </ThemeProvider>
+    </ColorContext.Provider>
   );
 }
 

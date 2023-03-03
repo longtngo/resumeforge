@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 
 export const SectionHeading = styled('h2')`
-  border-left: 3px solid orange;
+  border-left: 3px solid ${({ theme }) => theme.palette.primary.main};
   padding-left: 8px;
   text-transform: uppercase;
   margin-left: -12px;
