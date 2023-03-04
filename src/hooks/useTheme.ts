@@ -6,7 +6,7 @@ type IColorContext = {
 };
 
 export const defaultColorContext = {
-  color: '0693e3',
+  color: '#0693e3',
   setColor: (color: string) => {
     //no ops
   },
