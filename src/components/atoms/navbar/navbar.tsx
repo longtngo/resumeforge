@@ -16,7 +16,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import ShareIcon from '@mui/icons-material/Share';
 import { ReactElement, useCallback, useState, MouseEvent } from 'react';
 import { useData } from 'src/hooks/useData';
-import JsonURL from '@jsonurl/jsonurl';
 import { LeftDrawer } from './leftDrawer';
 import { ShareDialog } from './shareDialog';
 import { UploadDialog } from './uploadDialog';
@@ -35,12 +34,10 @@ export const NavBar = ({ children }: Props) => {
   const { data, setData } = useData();
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
-  const [shareUrl, setShareUrl] = useState<string>();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleShareClose = useCallback(() => {
     setShowShareDialog(false);
-    setShareUrl(undefined);
   }, []);
 
   const handleUploadClose = useCallback(() => {
@@ -85,8 +82,6 @@ export const NavBar = ({ children }: Props) => {
       onClick: useCallback(() => {
         if (!data) return;
 
-        const encodedData = encodeURIComponent(JsonURL.stringify(data) || '');
-        setShareUrl(window.location.origin + '?data=' + encodedData);
         setShowShareDialog(true);
       }, [data]),
     },
@@ -129,11 +124,7 @@ export const NavBar = ({ children }: Props) => {
       </AppBar>
       <LeftDrawer data={listItemData} />
       {children}
-      <ShareDialog
-        show={showShareDialog}
-        onClose={handleShareClose}
-        shareUrl={shareUrl}
-      />
+      {showShareDialog && <ShareDialog show onClose={handleShareClose} />}
       <UploadDialog
         show={showFileUpload}
         onClose={handleUploadClose}
