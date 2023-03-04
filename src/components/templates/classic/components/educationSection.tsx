@@ -8,6 +8,7 @@ type Props = {
 };
 
 export const EducationSection = ({ data: { education } }: Props) => {
+  if (!education) return null;
   return (
     <Section>
       <SectionHeading>Education</SectionHeading>

@@ -38,7 +38,7 @@ const AwardIcon = styled(EmojiEventsIcon)`
 `;
 
 export const AwardSection = ({ data: { awards } }: Props) => {
-  if (!awards) return;
+  if (!awards) return null;
   return (
     <Section>
       <SectionHeading>Awards</SectionHeading>

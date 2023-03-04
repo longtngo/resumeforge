@@ -7,14 +7,14 @@ import {
   Box,
   CssBaseline,
   Avatar,
-  styled,
+  Popover,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import UploadIcon from '@mui/icons-material/Upload';
 import DownloadIcon from '@mui/icons-material/Download';
 import EditIcon from '@mui/icons-material/Edit';
 import ShareIcon from '@mui/icons-material/Share';
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useCallback, useState, MouseEvent } from 'react';
 import { useData } from 'src/hooks/useData';
 import JsonURL from '@jsonurl/jsonurl';
 import { LeftDrawer } from './leftDrawer';
@@ -22,32 +22,21 @@ import { ShareDialog } from './shareDialog';
 import { UploadDialog } from './uploadDialog';
 import { saveAs } from 'file-saver';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
-import CircleIcon from '@mui/icons-material/Circle';
-import ColorizeIcon from '@mui/icons-material/Colorize';
-import { blue, green, red } from '@mui/material/colors';
 import { IListItem } from './sidebarItem';
 import { useThemeColor } from 'src/hooks/useTheme';
+import { ColorChangeHandler, TwitterPicker } from 'react-color';
 
 type Props = {
   children: ReactElement;
 };
 
-const RedCircle = styled(CircleIcon)`
-  color: ${red[500]};
-`;
-const GreenCircle = styled(CircleIcon)`
-  color: ${green[500]};
-`;
-const BlueCircle = styled(CircleIcon)`
-  color: ${blue[500]};
-`;
-
 export const NavBar = ({ children }: Props) => {
-  const { setColor } = useThemeColor();
+  const { color, setColor } = useThemeColor();
   const { data, setData } = useData();
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
   const [shareUrl, setShareUrl] = useState<string>();
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleShareClose = useCallback(() => {
     setShowShareDialog(false);
@@ -58,8 +47,20 @@ export const NavBar = ({ children }: Props) => {
     setShowFileUpload(false);
   }, []);
 
+  const handleColorPickerClose = useCallback(() => {
+    setAnchorEl(null);
+  }, []);
+
+  const handleChangeColor: ColorChangeHandler = useCallback(
+    (color) => {
+      setColor(color.hex);
+    },
+    [setColor]
+  );
+
   const listItemData: IListItem[] = [
     {
+      id: 'upload',
       icon: <UploadIcon />,
       text: 'Upload',
       onClick: useCallback(() => {
@@ -67,6 +68,7 @@ export const NavBar = ({ children }: Props) => {
       }, []),
     },
     {
+      id: 'download',
       icon: <DownloadIcon />,
       text: 'Download',
       onClick: useCallback(() => {
@@ -77,6 +79,7 @@ export const NavBar = ({ children }: Props) => {
       }, [data]),
     },
     {
+      id: 'share',
       icon: <ShareIcon />,
       text: 'Share',
       onClick: useCallback(() => {
@@ -88,38 +91,13 @@ export const NavBar = ({ children }: Props) => {
       }, [data]),
     },
     {
-      icon: <ColorLensIcon />,
+      id: 'theme-color',
+      icon: <ColorLensIcon style={{ color }} />,
       text: 'Theme Color',
-      subItems: [
-        {
-          icon: <RedCircle />,
-          text: 'Red',
-          onClick: useCallback(() => {
-            setColor(red[500]);
-          }, [setColor]),
-        },
-        {
-          icon: <GreenCircle />,
-          text: 'Green',
-          onClick: useCallback(() => {
-            setColor(green[500]);
-          }, [setColor]),
-        },
-        {
-          icon: <BlueCircle />,
-          text: 'Blue',
-          onClick: useCallback(() => {
-            setColor(blue[500]);
-          }, [setColor]),
-        },
-        {
-          icon: <ColorizeIcon />,
-          text: 'Pick a color',
-          onClick: useCallback(() => {
-            alert('hello');
-          }, []),
-        },
-      ],
+      secondary: <span style={{ color }}>{color}</span>,
+      onClick: useCallback((event: MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+      }, []),
     },
   ];
 
@@ -161,6 +139,17 @@ export const NavBar = ({ children }: Props) => {
         onClose={handleUploadClose}
         onSubmit={setData}
       />
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleColorPickerClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <TwitterPicker color={color} onChangeComplete={handleChangeColor} />
+      </Popover>
     </Box>
   );
 };

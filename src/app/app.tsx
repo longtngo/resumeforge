@@ -1,6 +1,6 @@
 import JsonURL from '@jsonurl/jsonurl';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useData } from 'src/hooks/useData';
 import { ColorContext, defaultColorContext } from 'src/hooks/useTheme';
 import { View } from 'src/pages';
@@ -11,9 +11,20 @@ export function App() {
   const { setData } = useData(demoData);
   const isInitialized = useRef<boolean>(false);
 
+  const setPersistedColor = useCallback((color: string) => {
+    localStorage.setItem('theme', color);
+    setColor(color);
+  }, []);
+
   useEffect(() => {
     if (isInitialized.current) return;
     isInitialized.current = true;
+
+    const savedColor = localStorage.getItem('theme');
+
+    if (savedColor) {
+      setColor(savedColor);
+    }
 
     let result = demoData;
 
@@ -46,7 +57,7 @@ export function App() {
   }, [color]);
 
   return (
-    <ColorContext.Provider value={{ color, setColor }}>
+    <ColorContext.Provider value={{ color, setColor: setPersistedColor }}>
       <ThemeProvider theme={theme}>
         <CssBaseline>
           <View />

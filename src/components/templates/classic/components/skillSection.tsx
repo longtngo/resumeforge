@@ -26,6 +26,7 @@ const SubSectionTitle = styled('h3')`
 `;
 
 export const SkillSection = ({ data: { skills } }: Props) => {
+  if (!skills) return null;
   return (
     <Section>
       <SectionHeading>Technical Proficiency</SectionHeading>

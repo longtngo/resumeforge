@@ -8,12 +8,14 @@ import {
   Collapse,
   List,
 } from '@mui/material';
-import React, { ReactElement } from 'react';
+import React, { MouseEventHandler, ReactElement, ReactNode } from 'react';
 
 export type IListItem = {
+  id: string;
   icon: ReactElement;
-  text: string;
-  onClick?: () => void;
+  text: ReactNode;
+  secondary?: ReactNode;
+  onClick?: MouseEventHandler<HTMLElement>;
   subItems?: IListItem[];
 };
 
@@ -28,7 +30,7 @@ export const SideBarItem = ({ itemData }: { itemData: IListItem }) => {
 
   const item = (
     <ListItem
-      key={itemData.text}
+      key={itemData.id}
       disablePadding
       onClick={hasSubItems ? handleClick : undefined}
     >
@@ -36,6 +38,7 @@ export const SideBarItem = ({ itemData }: { itemData: IListItem }) => {
         {!!itemData.icon && <ListItemIcon>{itemData.icon}</ListItemIcon>}
         <ListItemText
           primary={itemData.text}
+          secondary={itemData.secondary}
           onClick={hasSubItems ? undefined : itemData.onClick}
         />
         {hasSubItems && (open ? <ExpandLess /> : <ExpandMore />)}
@@ -51,7 +54,7 @@ export const SideBarItem = ({ itemData }: { itemData: IListItem }) => {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding sx={{ paddingLeft: 3 }}>
           {itemData.subItems?.map((subItem) => (
-            <SideBarItem key={subItem.text} itemData={subItem} />
+            <SideBarItem key={subItem.id} itemData={subItem} />
           ))}
         </List>
       </Collapse>

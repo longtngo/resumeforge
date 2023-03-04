@@ -1,4 +1,3 @@
-import { createTheme } from '@mui/material';
 import { createContext, useContext } from 'react';
 
 type IColorContext = {
@@ -6,10 +5,8 @@ type IColorContext = {
   setColor: (color: string) => void;
 };
 
-const defaultTheme = createTheme();
-
 export const defaultColorContext = {
-  color: defaultTheme.palette.primary.main,
+  color: '0693e3',
   setColor: (color: string) => {
     //no ops
   },

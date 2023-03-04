@@ -7,6 +7,7 @@ type Props = {
 };
 
 export const WorkSection = ({ data: { work } }: Props) => {
+  if (!work) return null;
   return (
     <Section>
       <SectionHeading>Experience</SectionHeading>
