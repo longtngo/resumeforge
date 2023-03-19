@@ -31,14 +31,16 @@ export const Classic = () => {
 
   return (
     <Container>
-      {Object.keys(data).map((key) => {
-        const _key = key as keyof typeof sectionMap;
-        const Section = sectionMap[_key];
+      <div id="main">
+        {Object.keys(data).map((key) => {
+          const _key = key as keyof typeof sectionMap;
+          const Section = sectionMap[_key];
 
-        if (!Section) return null;
+          if (!Section) return null;
 
-        return <Section key={key} data={data} />;
-      })}
+          return <Section key={key} data={data} />;
+        })}
+      </div>
     </Container>
   );
 };

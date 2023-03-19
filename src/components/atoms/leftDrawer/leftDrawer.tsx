@@ -1,5 +1,5 @@
 import { Drawer, Toolbar, Box, List } from '@mui/material';
-import { IListItem, SideBarItem } from './sidebarItem';
+import { IListItem, SideBarItem } from '../navbar/sidebarItem';
 
 const drawerWidth = 240;
 
@@ -10,6 +10,7 @@ type Props = {
 export const LeftDrawer = ({ data }: Props) => {
   return (
     <Drawer
+      id="sideDrawer"
       variant="permanent"
       sx={{
         width: drawerWidth,
@@ -24,7 +25,7 @@ export const LeftDrawer = ({ data }: Props) => {
       <Box sx={{ overflow: 'auto' }}>
         <List>
           {data.map((item) => (
-            <SideBarItem key={item.text} itemData={item} />
+            <SideBarItem key={item.id} itemData={item} />
           ))}
         </List>
       </Box>

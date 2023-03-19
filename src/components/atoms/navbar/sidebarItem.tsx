@@ -12,7 +12,7 @@ import React, { MouseEventHandler, ReactElement, ReactNode } from 'react';
 
 export type IListItem = {
   id: string;
-  icon: ReactElement;
+  icon?: ReactElement;
   text: ReactNode;
   secondary?: ReactNode;
   onClick?: MouseEventHandler<HTMLElement>;

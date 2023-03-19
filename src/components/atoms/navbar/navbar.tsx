@@ -16,7 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ShareIcon from '@mui/icons-material/Share';
 import { ReactElement, useCallback, useState, MouseEvent } from 'react';
 import { useData } from 'src/hooks/useData';
-import { LeftDrawer } from './leftDrawer';
+import { LeftDrawer } from '../leftDrawer/leftDrawer';
 import { ShareDialog } from './shareDialog';
 import { UploadDialog } from './uploadDialog';
 import { saveAs } from 'file-saver';
@@ -24,6 +24,7 @@ import ColorLensIcon from '@mui/icons-material/ColorLens';
 import { IListItem } from './sidebarItem';
 import { useThemeColor } from 'src/hooks/useTheme';
 import { ColorChangeHandler, TwitterPicker } from 'react-color';
+import PrintIcon from '@mui/icons-material/Print';
 
 type Props = {
   children: ReactElement;
@@ -57,23 +58,56 @@ export const NavBar = ({ children }: Props) => {
 
   const listItemData: IListItem[] = [
     {
-      id: 'upload',
+      id: 'upload-json',
       icon: <UploadIcon />,
-      text: 'Upload',
+      text: 'Upload JSON',
       onClick: useCallback(() => {
         setShowFileUpload(true);
       }, []),
     },
     {
-      id: 'download',
+      id: 'download-json',
       icon: <DownloadIcon />,
-      text: 'Download',
+      text: 'Download JSON',
       onClick: useCallback(() => {
         const fileName = data?.basics?.name || 'template-data';
         const sanitizedFileName =
           fileName.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.json';
         saveAs(new Blob([JSON.stringify(data)]), sanitizedFileName);
       }, [data]),
+    },
+    {
+      id: 'print',
+      icon: <PrintIcon />,
+      text: 'Print',
+      onClick: useCallback(async () => {
+        const mainEl = document.getElementById('main');
+        if (!mainEl) return;
+
+        const styledEl = document.querySelector('style[data-styled="active"]');
+        if (!styledEl) return;
+
+        const printWindow = window.open('', '');
+        if (!printWindow) return;
+
+        printWindow.document.write(
+          `<html>
+            <head>
+              <title>Print Preview</title>
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
+              <style>${styledEl.innerHTML}</style>
+              <style type="text/css" media="print">
+                @media print {
+                  body {-webkit-print-color-adjust: exact;}
+                }
+              </style>
+            </head>
+            <body>${mainEl.innerHTML}</body>
+          </html>`
+        );
+        printWindow.print();
+        printWindow.close();
+      }, []),
     },
     {
       id: 'share',
@@ -100,6 +134,7 @@ export const NavBar = ({ children }: Props) => {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
+        id="nav"
         position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
