@@ -25,6 +25,7 @@ import { IListItem } from './sidebarItem';
 import { useThemeColor } from 'src/hooks/useTheme';
 import { ColorChangeHandler, TwitterPicker } from 'react-color';
 import PrintIcon from '@mui/icons-material/Print';
+import printJS from 'print-js';
 
 type Props = {
   children: ReactElement;
@@ -87,26 +88,12 @@ export const NavBar = ({ children }: Props) => {
         const styledEl = document.querySelector('style[data-styled="active"]');
         if (!styledEl) return;
 
-        const printWindow = window.open('', '');
-        if (!printWindow) return;
-
-        printWindow.document.write(
-          `<html>
-            <head>
-              <title>Print Preview</title>
-              <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
-              <style>${styledEl.innerHTML}</style>
-              <style type="text/css" media="print">
-                @media print {
-                  body {-webkit-print-color-adjust: exact;}
-                }
-              </style>
-            </head>
-            <body>${mainEl.innerHTML}</body>
-          </html>`
-        );
-        printWindow.print();
-        printWindow.close();
+        printJS({
+          printable: mainEl.innerHTML,
+          type: 'raw-html',
+          header: '',
+          style: styledEl.innerHTML,
+        });
       }, []),
     },
     {

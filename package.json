@@ -60,6 +60,7 @@
     "dayjs": "^1.11.7",
     "file-saver": "^2.0.5",
     "jsoncrush": "^1.1.8",
+    "print-js": "^1.6.0",
     "react": "18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "18.2.0",
