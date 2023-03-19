@@ -92,7 +92,9 @@ export const NavBar = ({ children }: Props) => {
           printable: mainEl.innerHTML,
           type: 'raw-html',
           header: '',
-          style: styledEl.innerHTML,
+          style:
+            styledEl.innerHTML +
+            `@media print { body {-webkit-print-color-adjust: exact;} }`,
         });
       }, []),
     },
